@@ -1,5 +1,6 @@
 package HospitalManagementSystem;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Main {
@@ -7,12 +8,16 @@ public class Main {
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
+        Main app = new Main(); // Encapsulating application logic within an object
+        app.run();
+    }
+
+    // Encapsulating the main application loop
+    public void run() {
         int choice;
         do {
             displayMenu();
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            choice = getUserChoice();
 
             switch (choice) {
                 case 1:
@@ -71,7 +76,7 @@ public class Main {
         scanner.close();
     }
 
-    private static void displayMenu() {
+    private void displayMenu() {
         System.out.println("\n--- Hospital Management System Menu ---");
         System.out.println("1. Add New Patient");
         System.out.println("2. View All Patients");
@@ -89,5 +94,23 @@ public class Main {
         System.out.println("14. Update Patient Information");
         System.out.println("15. Generate Hospital Reports");
         System.out.println("0. Exit");
+    }
+
+    // Encapsulating user input with exception handling
+    private int getUserChoice() {
+        int choice = -1;
+        boolean validInput = false;
+        while (!validInput) {
+            System.out.print("Enter your choice: ");
+            try {
+                choice = scanner.nextInt();
+                validInput = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid input. Please enter a number.");
+                scanner.nextLine(); // Consume the invalid input
+            }
+        }
+        scanner.nextLine(); // Consume the remaining newline character
+        return choice;
     }
 }
