@@ -26,3 +26,4 @@ replay_pid*
 /build/
 /dist/
 /nbproject/private/
+!lib/mysql-connector-j-26.7.0.jar

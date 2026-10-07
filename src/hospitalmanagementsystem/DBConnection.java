@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package hospitalmanagementsystem;
 
 import java.sql.Connection;
@@ -18,6 +14,13 @@ public class DBConnection {
     private static final String PASSWORD = System.getenv("DB_PASSWORD");
 
     public static Connection getConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            throw new SQLException(
+                    "MySQL driver is missing from the runtime classpath", e);
+        }
+
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
